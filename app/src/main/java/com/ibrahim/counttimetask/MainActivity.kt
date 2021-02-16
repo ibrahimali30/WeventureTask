@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    var countDownTimer: CountDownTimer? = null
+    private var countDownTimer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun onStartCountButtonClicked() {
+    private fun onStartCountButtonClicked() {
         val seconds = etInput.text.toString().toIntOrNull()
         seconds ?: return
 
@@ -37,20 +37,20 @@ class MainActivity : AppCompatActivity() {
             override fun onFinish() {}
 
             override fun onTick(millisUntilFinished: Long) {
-                displayFormatedRemainingTime((millisUntilFinished/1000).toInt())
+                displayFormattedRemainingTime((millisUntilFinished/1000).toInt())
             }
         }.start()
     }
 
-    private fun displayFormatedRemainingTime(remainingTimeIsSeconds: Int) {
+    private fun displayFormattedRemainingTime(remainingTimeIsSeconds: Int) {
         val seconds: Int = remainingTimeIsSeconds % 60
         val minute: Int = (remainingTimeIsSeconds / 60) % 60
         val hours: Int = (remainingTimeIsSeconds / (60*60)) % 24
         val days: Int = (remainingTimeIsSeconds / (60*60*24))
 
-        val timeString = String.format("%02d:%02d:%02d:%02d",  days, hours, minute, seconds)
+        val formattedRemainingTime = String.format("%02d:%02d:%02d:%02d",  days, hours, minute, seconds)
 
-        tvCount.text = timeString
+        tvCount.text = formattedRemainingTime
 
     }
 }
